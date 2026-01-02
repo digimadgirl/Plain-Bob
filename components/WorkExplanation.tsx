@@ -5,17 +5,26 @@ import { WORK_STAGES } from '../constants';
 const WorkExplanation: React.FC = () => {
   const [activeStage, setActiveStage] = useState(0);
 
+  // Re-order stages for display in the circle of work sequence
+  // Make 2nds -> 3-4 Down -> Four Behind -> 3-4 Up
+  const displayStages = [
+    WORK_STAGES.find(s => s.name === "Make 2nds")!,
+    WORK_STAGES.find(s => s.name === "3-4 Down Dodge")!,
+    WORK_STAGES.find(s => s.name === "Four Blows Behind")!,
+    WORK_STAGES.find(s => s.name === "3-4 Up Dodge")!,
+  ];
+
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 lg:p-10">
       <h2 className="text-3xl font-bold mb-6">The Circle of Work</h2>
       <p className="text-slate-600 mb-8 leading-relaxed">
-        In Plain Bob Doubles, as you ring the method, you cycle through four distinct "pieces of work" 
-        at the end of each lead (when the treble leads). Understanding these is key to "knowing the method."
+        In Plain Bob Doubles, you cycle through these four distinct "pieces of work" 
+        at the end of each lead. This cycle repeats indefinitely until a Bob or Single is called.
       </p>
 
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-4">
-          {WORK_STAGES.map((stage, index) => (
+          {displayStages.map((stage, index) => (
             <button
               key={stage.name}
               onClick={() => setActiveStage(index)}
@@ -35,13 +44,13 @@ const WorkExplanation: React.FC = () => {
           <div className="absolute top-4 right-4 text-slate-700 font-black text-6xl select-none opacity-20">
             {activeStage + 1}
           </div>
-          <h3 className="text-2xl font-bold mb-4 text-blue-400">{WORK_STAGES[activeStage].name}</h3>
+          <h3 className="text-2xl font-bold mb-4 text-blue-400">{displayStages[activeStage].name}</h3>
           <p className="text-slate-300 mb-6 text-lg">
-            {WORK_STAGES[activeStage].description}
+            {displayStages[activeStage].description}
           </p>
           <div className="p-4 bg-white/10 rounded-lg">
             <span className="text-blue-300 font-bold block mb-1">Visual Cue:</span>
-            <span className="text-white italic">{WORK_STAGES[activeStage].visualCue}</span>
+            <span className="text-white italic">{displayStages[activeStage].visualCue}</span>
           </div>
         </div>
       </div>
